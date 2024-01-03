@@ -3,7 +3,8 @@ import threading
 import time
 import random
 
-
+# Number of LEDs
+N_LED = 7
 
 class LEDControlApp:
     def __init__(self, root):
@@ -15,15 +16,15 @@ class LEDControlApp:
 
         # Create LEDs
         self.led_labels = []
-        for i in range(4):
+        for i in range(N_LED):
             label = tk.Label(root, text=f"LED {i+1}", font=('Helvetica', 12))
             label.grid(row=i, column=0, padx=10, pady=10)
             self.led_labels.append(label)
 
         # Create Buttons
-        self.button_labels = ['Button 1', 'Button 2', 'Button 3', 'Button 4']
+        self.button_labels = ['Button 1', 'Button 2', 'Button 3', 'Button 4', 'Button 5', 'Button 6', 'Button 7', 'Button 8']
         self.buttons = []
-        for i in range(4):
+        for i in range(N_LED):
             button = tk.Button(root, text=self.button_labels[i], command=lambda idx=i: self.toggle_led(idx))
             button.grid(row=i, column=1, padx=10, pady=10)
             self.buttons.append(button)
@@ -35,10 +36,10 @@ class LEDControlApp:
     def update_leds_thread(self):
         while True:
             # Simulate updating LED states from memory
-            self.led_states = [random.choice([0, 1]) for _ in range(4)]
+            self.led_states = [random.choice([0, 1]) for _ in range(N_LED)]
 
             # Update LED labels on the GUI
-            for i in range(4):
+            for i in range(N_LED):
                 if self.led_states[i] == 1:
                     self.led_labels[i].config(bg='green', fg='white')
                 else:
